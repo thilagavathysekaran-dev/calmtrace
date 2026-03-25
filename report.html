@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Incident — CalmTrace</title>
+  <meta name="description" content="Submit a cybercrime incident report to CalmTrace for automatic digital evidence preservation." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="alert-container"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="navbar-logo">🛡️</div>
+    <span class="navbar-title">CalmTrace</span>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" id="nav-home">🏠 Home</a></li>
+    <li><a href="report.html" class="active" id="nav-report">📁 Report Incident</a></li>
+    <li><a href="vault.html" id="nav-vault">🔒 Evidence Vault</a></li>
+    <li><a href="dashboard.html" id="nav-dashboard">📊 Dashboard</a></li>
+    <li><a href="guidelines.html" id="nav-guidelines">📚 Guidelines</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    <span>System Online</span>
+  </div>
+</nav>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="section-label">Evidence Collection</div>
+      <h1>🚨 Report a Cybercrime Incident</h1>
+      <p style="color:var(--text-secondary); margin-top:0.5rem;">
+        Submit your incident details below. CalmTrace will automatically collect metadata,
+        generate a tamperproof hash, and preserve everything in the Black Vault.
+      </p>
+    </div>
+
+    <div class="grid-2" style="align-items: start;">
+
+      <!-- Form -->
+      <div>
+        <div class="card" style="padding:2rem;">
+          <h3 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:8px;">
+            <span>📋</span> Incident Details
+          </h3>
+
+          <form id="incident-form" novalidate>
+
+            <div class="form-group">
+              <label class="form-label" for="incidentType">Incident Type *</label>
+              <select class="form-control" id="incidentType" name="incidentType" required>
+                <option value="" disabled selected>Select incident type…</option>
+                <option value="Phishing">🎣 Phishing Attack</option>
+                <option value="Ransomware">🔐 Ransomware</option>
+                <option value="Data Breach">💾 Data Breach</option>
+                <option value="DDoS">🌊 DDoS Attack</option>
+                <option value="Malware">🦠 Malware Infection</option>
+                <option value="Identity Theft">👤 Identity Theft</option>
+                <option value="Social Engineering">🎭 Social Engineering</option>
+                <option value="Unauthorized Access">🚪 Unauthorized Access</option>
+                <option value="Financial Fraud">💳 Financial Fraud</option>
+                <option value="Account Compromise">🔓 Account Compromise</option>
+                <option value="Other">❓ Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="affectedSystem">Affected System / Platform</label>
+              <input
+                type="text"
+                class="form-control"
+                id="affectedSystem"
+                name="affectedSystem"
+                placeholder="e.g. Windows 11 PC, Gmail, Company VPN…"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="description">Incident Description *</label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="5"
+                placeholder="Describe what happened in as much detail as possible. Include any suspicious links, messages, or behaviours you noticed…"
+                required
+              ></textarea>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.4rem;">
+                More detail = better evidence quality.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactEmail">Contact Email (optional)</label>
+              <input
+                type="email"
+                class="form-control"
+                id="contactEmail"
+                name="contactEmail"
+                placeholder="your@email.com (left blank = anonymous)"
+              />
+            </div>
+
+            <div id="form-error" style="display:none; color:var(--accent-red); font-size:0.88rem; margin-bottom:1rem; padding:0.75rem; background:rgba(255,51,102,0.08); border-radius:8px; border:1px solid rgba(255,51,102,0.2);">
+              ⚠️ Please fill in all required fields.
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full" id="submit-btn" style="justify-content:center; padding:1rem;">
+              🔒 Submit & Preserve Evidence
+            </button>
+          </form>
+        </div>
+
+        <!-- Success Box -->
+        <div class="success-box" id="success-box">
+          <h4>✅ Evidence Successfully Preserved!</h4>
+          <div class="mb-2">
+            <label class="form-label">Evidence ID</label>
+            <div class="hash-display"><span class="hash-icon">🆔</span><span id="success-id">—</span></div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">SHA-256 Tamperproof Hash</label>
+            <div class="hash-display"><span class="hash-icon">🔏</span><span id="success-hash">—</span></div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Timestamp (UTC)</label>
+            <div class="hash-display"><span class="hash-icon">🕐</span><span id="success-time">—</span></div>
+          </div>
+          <div id="success-detection" style="margin-top:1rem;"></div>
+          <a href="vault.html" class="btn btn-success mt-2 w-full" style="justify-content:center;">
+            🔒 View in Evidence Vault →
+          </a>
+        </div>
+      </div>
+
+      <!-- Info Panel -->
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+
+        <div class="card">
+          <div class="card-icon cyan">⚙️</div>
+          <h3>What We Collect Automatically</h3>
+          <p style="margin-bottom:1rem;">
+            When you submit, CalmTrace automatically captures the following metadata
+            alongside your report — no manual action required.
+          </p>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
+            <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.9rem;">
+              <span style="color:var(--accent-cyan); font-size:1.1rem; flex-shrink:0;">🌐</span>
+              <span><strong>IP Address</strong> — Source IP of the session (simulated for privacy)</span>
+            </li>
+            <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.9rem;">
+              <span style="color:var(--accent-cyan); font-size:1.1rem; flex-shrink:0;">🕐</span>
+              <span><strong>Timestamp</strong> — ISO 8601 UTC time of report submission</span>
+            </li>
+            <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.9rem;">
+              <span style="color:var(--accent-cyan); font-size:1.1rem; flex-shrink:0;">🔗</span>
+              <span><strong>DNS Logs</strong> — Simulated suspicious domain queries linked to incident</span>
+            </li>
+            <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.9rem;">
+              <span style="color:var(--accent-cyan); font-size:1.1rem; flex-shrink:0;">🔏</span>
+              <span><strong>SHA-256 Hash</strong> — Tamperproof fingerprint of the complete record</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-icon green">🔐</div>
+          <h3>Privacy Guarantee</h3>
+          <p>
+            CalmTrace stores only metadata and your submitted details. All data remains
+            on your local machine. Nothing is transmitted to external servers.
+            Contact email is optional and used only for follow-up.
+          </p>
+        </div>
+
+        <div class="card" style="background:rgba(255,51,102,0.05); border-color:rgba(255,51,102,0.2);">
+          <div class="card-icon red">🚨</div>
+          <h3 style="color:var(--accent-red);">Still in Danger?</h3>
+          <p style="margin-bottom:1rem;">
+            If you believe you are actively under attack, immediately:
+          </p>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.88rem; color:var(--text-secondary);">
+            <li>🔌 Disconnect from the network if possible</li>
+            <li>📸 Screenshot any suspicious activity</li>
+            <li>📞 Contact your local cybercrime authority</li>
+            <li>🔒 Change passwords from a safe device</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <p>🛡️ <span>CalmTrace</span> &mdash; Cybercrime Evidence Preservation System &mdash; Built for Hackathon 2026</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/report.js"></script>
+</body>
+</html>

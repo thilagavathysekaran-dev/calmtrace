@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guideline & Support — CalmTrace</title>
+  <meta name="description" content="Identify your cyber attack type and get immediate step-by-step guidance from CalmTrace." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/guidelines.css" />
+</head>
+<body>
+
+<!-- ─── Alert Container ──────────────────────────────────────────────── -->
+<div id="alert-container"></div>
+
+<!-- ─── Navbar ──────────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="navbar-logo">🛡️</div>
+    <span class="navbar-title">CalmTrace</span>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" id="nav-home">🏠 Home</a></li>
+    <li><a href="report.html" id="nav-report">📁 Report Incident</a></li>
+    <li><a href="vault.html" id="nav-vault">🔒 Evidence Vault</a></li>
+    <li><a href="dashboard.html" id="nav-dashboard">📊 Dashboard</a></li>
+    <li><a href="guidelines.html" class="active" id="nav-guidelines">📚 Guidelines</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    <span>System Online</span>
+  </div>
+</nav>
+
+<!-- ─── Main Content ─────────────────────────────────────────────────── -->
+<main class="main-content">
+  <div class="container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="section-label">Cyber Safety Hub</div>
+      <h1>📚 Guideline & Support</h1>
+      <p style="color:var(--text-secondary); margin-top:0.5rem; max-width:640px;">
+        Not sure what happened? Use this guide to identify the attack type and follow
+        proven steps to protect yourself — before evidence disappears.
+      </p>
+    </div>
+
+    <!-- ─── Attack Identifier ─────────────────────────────────────────── -->
+    <div class="identify-bar card" id="identify-bar">
+      <div class="identify-icon">🔍</div>
+      <div class="identify-content">
+        <h3>What are you experiencing?</h3>
+        <p>Select a symptom and we'll suggest the most likely attack type.</p>
+        <div class="identify-controls">
+          <select id="symptom-select" class="form-control" onchange="identifyAttack()">
+            <option value="" disabled selected>Choose a symptom…</option>
+            <optgroup label="Suspicious Activity">
+              <option value="suspicious-link">I clicked a suspicious link</option>
+              <option value="suspicious-email">I received a suspicious email</option>
+              <option value="pop-ups">I'm seeing unexpected pop-ups or ads</option>
+              <option value="slow-device">My device suddenly became very slow</option>
+              <option value="unknown-program">Unknown program appeared on my device</option>
+            </optgroup>
+            <optgroup label="Account & Access">
+              <option value="cant-login">I can't log into my account anymore</option>
+              <option value="password-changed">My password was changed without me</option>
+              <option value="unauthorized-access">Someone logged in from an unknown location</option>
+              <option value="mfa-codes">I'm receiving unexpected 2FA codes</option>
+            </optgroup>
+            <optgroup label="Financial & Personal">
+              <option value="unknown-charges">I see unknown charges on my account</option>
+              <option value="money-requested">Someone asked me to send money urgently</option>
+              <option value="personal-info-exposed">My personal info appeared somewhere online</option>
+              <option value="fake-invoice">I received a fake invoice or bill</option>
+            </optgroup>
+            <optgroup label="Device & Files">
+              <option value="files-encrypted">My files are encrypted and I can't open them</option>
+              <option value="ransom-note">I see a ransom demand on my screen</option>
+              <option value="camera-mic">Camera/microphone activating on its own</option>
+              <option value="outgoing-messages">Messages sent from my account I didn't write</option>
+            </optgroup>
+          </select>
+          <button class="btn btn-primary" onclick="identifyAttack()" id="identify-btn">Identify Attack →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attack Suggestion Result -->
+    <div id="attack-suggestion" class="attack-suggestion" style="display:none;"></div>
+
+    <!-- ─── Search Bar ─────────────────────────────────────────────────── -->
+    <div style="margin: 2rem 0 1.5rem; display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
+      <div style="position:relative; flex:1; max-width:420px;">
+        <input
+          type="text"
+          id="guide-search"
+          class="form-control"
+          placeholder="🔍 Search attack types…"
+          oninput="filterGuideCards()"
+          style="padding-left:1rem;"
+        />
+      </div>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;" id="filter-tags">
+        <button class="filter-tag active" data-filter="all" onclick="setTagFilter('all', this)">All</button>
+        <button class="filter-tag" data-filter="network" onclick="setTagFilter('network', this)">🌐 Network</button>
+        <button class="filter-tag" data-filter="account" onclick="setTagFilter('account', this)">🔑 Account</button>
+        <button class="filter-tag" data-filter="financial" onclick="setTagFilter('financial', this)">💳 Financial</button>
+        <button class="filter-tag" data-filter="device" onclick="setTagFilter('device', this)">💻 Device</button>
+        <button class="filter-tag" data-filter="identity" onclick="setTagFilter('identity', this)">👤 Identity</button>
+      </div>
+    </div>
+
+    <!-- ─── Guideline Cards ────────────────────────────────────────────── -->
+    <div id="guide-cards" class="guide-cards-grid">
+      <!-- Injected by guidelines.js -->
+    </div>
+
+    <div id="no-results" style="display:none;" class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <p>No attack types match your search. <button class="btn btn-secondary" style="padding:0.3rem 0.9rem; font-size:0.82rem; margin-left:0.5rem;" onclick="resetGuideFilter()">Clear Search</button></p>
+    </div>
+
+    <!-- ─── Emergency Contacts ────────────────────────────────────────── -->
+    <div class="card mt-3" style="margin-top:2.5rem; background:rgba(255,51,102,0.04); border-color:rgba(255,51,102,0.2);">
+      <h3 style="display:flex; align-items:center; gap:10px; margin-bottom:1.25rem;">
+        <span>🚨</span> Emergency Cybercrime Contacts
+        <span class="badge badge-red">Important</span>
+      </h3>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:1rem;">
+        <div class="emergency-card">
+          <div class="emergency-flag">🇮🇳</div>
+          <div>
+            <div class="emergency-label">India — Cybercrime Portal</div>
+            <div class="emergency-value">cybercrime.gov.in</div>
+            <div class="emergency-hotline">Helpline: <strong style="color:var(--accent-cyan);">1930</strong></div>
+          </div>
+        </div>
+        <div class="emergency-card">
+          <div class="emergency-flag">🇺🇸</div>
+          <div>
+            <div class="emergency-label">USA — Internet Crime (IC3)</div>
+            <div class="emergency-value">ic3.gov</div>
+            <div class="emergency-hotline">FBI Cyber: <strong style="color:var(--accent-cyan);">1-800-CALL-FBI</strong></div>
+          </div>
+        </div>
+        <div class="emergency-card">
+          <div class="emergency-flag">🇬🇧</div>
+          <div>
+            <div class="emergency-label">UK — Action Fraud</div>
+            <div class="emergency-value">actionfraud.police.uk</div>
+            <div class="emergency-hotline">Report: <strong style="color:var(--accent-cyan);">0300 123 2040</strong></div>
+          </div>
+        </div>
+        <div class="emergency-card">
+          <div class="emergency-flag">🌐</div>
+          <div>
+            <div class="emergency-label">Global — Europol Cybercrime</div>
+            <div class="emergency-value">europol.europa.eu</div>
+            <div class="emergency-hotline">Via your local police +<strong style="color:var(--accent-cyan);">Europol</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</main>
+
+<!-- ─── Footer ───────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <p>🛡️ <span>CalmTrace</span> &mdash; Cybercrime Evidence Preservation System &mdash; Built for Hackathon 2026</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     FLOATING CHATBOT WIDGET
+     ═══════════════════════════════════════════════════════ -->
+
+<!-- Chat Toggle Button -->
+<button id="chat-toggle" class="chat-toggle" onclick="toggleChat()" aria-label="Open support chat">
+  <span id="chat-toggle-icon">💬</span>
+  <span id="chat-badge" class="chat-badge" style="display:none;">1</span>
+</button>
+
+<!-- Chat Window -->
+<div id="chat-window" class="chat-window" role="dialog" aria-label="CalmTrace Support Chat">
+  <div class="chat-header">
+    <div class="chat-avatar">🛡️</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">CalmTrace Support</div>
+      <div class="chat-header-status"><span class="status-dot" style="width:6px;height:6px;"></span> Always Online</div>
+    </div>
+    <button class="chat-header-close" onclick="toggleChat()" aria-label="Close chat">✕</button>
+  </div>
+
+  <div id="chat-messages" class="chat-messages">
+    <!-- Messages injected by JS -->
+  </div>
+
+  <!-- Suggested Quick Replies -->
+  <div id="quick-replies" class="quick-replies"></div>
+
+  <div class="chat-input-wrapper">
+    <input
+      type="text"
+      id="chat-input"
+      class="chat-input"
+      placeholder="Describe your issue…"
+      onkeydown="handleChatKey(event)"
+      autocomplete="off"
+    />
+    <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Send message">➤</button>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/guidelines.js"></script>
+</body>
+</html>

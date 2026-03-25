@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evidence Vault — CalmTrace</title>
+  <meta name="description" content="Browse all stored digital evidence records — tamperproof hashes, DNS logs, and chain of custody." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="alert-container"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="navbar-logo">🛡️</div>
+    <span class="navbar-title">CalmTrace</span>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" id="nav-home">🏠 Home</a></li>
+    <li><a href="report.html" id="nav-report">📁 Report Incident</a></li>
+    <li><a href="vault.html" class="active" id="nav-vault">🔒 Evidence Vault</a></li>
+    <li><a href="dashboard.html" id="nav-dashboard">📊 Dashboard</a></li>
+    <li><a href="guidelines.html" id="nav-guidelines">📚 Guidelines</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    <span>System Online</span>
+  </div>
+</nav>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <div class="section-label">Black Vault</div>
+          <h1>🔒 Evidence Vault</h1>
+          <p style="color:var(--text-secondary); margin-top:0.5rem; font-size:0.95rem;">
+            All records are sealed with SHA-256 hashes. Tampered records can be mathematically detected.
+          </p>
+        </div>
+        <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="loadEvidence()" id="refresh-btn">🔄 Refresh</button>
+          <a href="report.html" class="btn btn-primary">+ New Report</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div style="display:flex; gap:0.75rem; margin-bottom:1.75rem; flex-wrap:wrap; align-items:center;">
+      <input
+        type="text"
+        class="form-control"
+        id="search-input"
+        placeholder="🔍 Search by type, description, or IP…"
+        style="max-width:320px; flex:1;"
+        oninput="filterRecords()"
+      />
+      <select class="form-control" id="filter-type" style="max-width:220px;" onchange="filterRecords()">
+        <option value="">All Types</option>
+        <option value="Phishing">🎣 Phishing</option>
+        <option value="Ransomware">🔐 Ransomware</option>
+        <option value="Data Breach">💾 Data Breach</option>
+        <option value="DDoS">🌊 DDoS</option>
+        <option value="Malware">🦠 Malware</option>
+        <option value="Identity Theft">👤 Identity Theft</option>
+        <option value="Unauthorized Access">🚪 Unauthorized Access</option>
+        <option value="Financial Fraud">💳 Financial Fraud</option>
+      </select>
+      <select class="form-control" id="filter-risk" style="max-width:180px;" onchange="filterRecords()">
+        <option value="">All Risk Levels</option>
+        <option value="high">🔴 High Risk (≥75)</option>
+        <option value="medium">🟡 Medium Risk</option>
+        <option value="low">🟢 Low Risk</option>
+      </select>
+      <span id="record-count" style="font-size:0.85rem; color:var(--text-muted); white-space:nowrap;"></span>
+    </div>
+
+    <!-- Evidence List -->
+    <div id="evidence-list">
+      <div class="spinner"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <p>🛡️ <span>CalmTrace</span> &mdash; Cybercrime Evidence Preservation System &mdash; Built for Hackathon 2026</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/vault.js"></script>
+</body>
+</html>

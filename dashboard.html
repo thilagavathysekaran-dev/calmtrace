@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — CalmTrace</title>
+  <meta name="description" content="CalmTrace security dashboard with incident statistics and threat overview." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="alert-container"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="navbar-logo">🛡️</div>
+    <span class="navbar-title">CalmTrace</span>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" id="nav-home">🏠 Home</a></li>
+    <li><a href="report.html" id="nav-report">📁 Report Incident</a></li>
+    <li><a href="vault.html" id="nav-vault">🔒 Evidence Vault</a></li>
+    <li><a href="dashboard.html" class="active" id="nav-dashboard">📊 Dashboard</a></li>
+    <li><a href="guidelines.html" id="nav-guidelines">📚 Guidelines</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    <span>System Online</span>
+  </div>
+</nav>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <div class="section-label">Command Center</div>
+          <h1>📊 Security Dashboard</h1>
+          <p style="color:var(--text-secondary); margin-top:0.5rem;">
+            Real-time overview of all incidents, threats, and preservation activity.
+          </p>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button class="btn btn-danger" id="trigger-alert-btn" onclick="triggerSimulatedAlert()">
+            ⚡ Simulate Alert
+          </button>
+          <a href="report.html" class="btn btn-primary">+ New Report</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.25rem; margin-bottom:2rem;" id="dash-stats">
+      <div class="stat-card cyan">
+        <div class="stat-icon">📁</div>
+        <div class="stat-value" id="ds-total">—</div>
+        <div class="stat-label">Total Reports</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">🕐</div>
+        <div class="stat-value" id="ds-24h">—</div>
+        <div class="stat-label">Last 24 Hours</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-icon">🔴</div>
+        <div class="stat-value" id="ds-highrisk">—</div>
+        <div class="stat-label">High Risk Events</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-icon">🔏</div>
+        <div class="stat-value" id="ds-hashed">—</div>
+        <div class="stat-label">Records Hashed</div>
+      </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="grid-2" style="align-items:start;">
+
+      <!-- Incident Types Breakdown -->
+      <div class="card">
+        <h3 style="margin-bottom:1.25rem; display:flex; align-items:center; gap:8px;">
+          📊 Incident Type Breakdown
+        </h3>
+        <div id="type-breakdown">
+          <div class="spinner" style="margin:1.5rem auto;"></div>
+        </div>
+      </div>
+
+      <!-- Latest Hash + Live Monitor -->
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div class="card">
+          <h3 style="margin-bottom:1rem;">🔏 Latest Evidence Hash</h3>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.75rem;">
+            SHA-256 fingerprint of the most recently preserved record.
+          </p>
+          <div class="hash-display" id="latest-hash">
+            <span class="hash-icon">🔏</span>
+            <span style="color:var(--text-muted);">No records yet…</span>
+          </div>
+          <div style="margin-top:0.75rem; font-size:0.78rem; color:var(--text-muted);">
+            ✅ Any modification to the record will change this hash — making tampering detectable.
+          </div>
+        </div>
+
+        <div class="card" style="background:rgba(255,51,102,0.04); border-color:rgba(255,51,102,0.15);">
+          <h3 style="margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
+            <span>🔴</span> Live Threat Monitor
+          </h3>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:1rem;">
+            Auto-detects simulated suspicious activities and fires real-time alerts.
+          </p>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem;">
+            <div style="flex:1; background:rgba(255,255,255,0.04); border-radius:8px; padding:0.75rem; text-align:center; min-width:90px;">
+              <div style="font-size:1.5rem; font-weight:800; color:var(--accent-red);" id="alert-count">0</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Alerts Fired</div>
+            </div>
+            <div style="flex:1; background:rgba(255,255,255,0.04); border-radius:8px; padding:0.75rem; text-align:center; min-width:90px;">
+              <div style="font-size:1.5rem; font-weight:800; color:var(--accent-yellow);" id="monitor-status">🟢 ON</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Monitor Status</div>
+            </div>
+          </div>
+          <div id="monitor-log" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="font-size:0.82rem; color:var(--text-muted); text-align:center; padding:1rem;">
+              No alerts yet. Click "Simulate Alert" or wait for auto-triggers.
+            </div>
+          </div>
+          <div style="display:flex; gap:0.75rem; margin-top:1rem; flex-wrap:wrap;">
+            <button class="btn btn-danger" onclick="triggerSimulatedAlert()" style="flex:1; justify-content:center;">⚡ Trigger Now</button>
+            <button class="btn btn-secondary" onclick="toggleMonitor()" id="monitor-toggle-btn" style="flex:1; justify-content:center;">⏸️ Pause Auto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Reports Table -->
+    <div class="card mt-3" style="margin-top:1.5rem; padding:0; overflow:hidden;">
+      <div style="padding:1.5rem 1.5rem 1rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
+        <h3 style="display:flex; align-items:center; gap:8px;">📋 Recent Reports</h3>
+        <a href="vault.html" class="btn btn-secondary" style="font-size:0.85rem; padding:0.4rem 1rem;">View All →</a>
+      </div>
+      <div id="recent-table" style="overflow-x:auto;">
+        <div class="spinner" style="margin:2rem auto;"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <p>🛡️ <span>CalmTrace</span> &mdash; Cybercrime Evidence Preservation System &mdash; Built for Hackathon 2026</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

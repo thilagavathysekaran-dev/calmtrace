@@ -1,0 +1,202 @@
+[
+  {
+    "id": "e3bb47b2-d5d4-408e-b75c-914066380b27",
+    "timestamp": "2026-03-24T14:44:11.862Z",
+    "ip": "203.45.155.53",
+    "incidentType": "Phishing",
+    "description": "Received a suspicious phishing email with malware link. Hacker tried unauthorized access.",
+    "contactEmail": "victim@test.com",
+    "affectedSystem": "Gmail / Chrome",
+    "dnsLogs": [
+      {
+        "domain": "cdn-update.tk",
+        "queryTime": "2026-03-24T13:44:15.025Z",
+        "type": "AAAA",
+        "response": "185.220.11.49"
+      },
+      {
+        "domain": "exploit-kit.pw",
+        "queryTime": "2026-03-24T14:05:11.325Z",
+        "type": "MX",
+        "response": "172.16.172.144"
+      }
+    ],
+    "detection": {
+      "isSuspicious": true,
+      "matchedKeywords": [
+        "hack",
+        "phishing",
+        "malware",
+        "unauthorized",
+        "suspicious"
+      ],
+      "riskScore": 100
+    },
+    "chainOfCustody": [],
+    "accessLog": [
+      {
+        "action": "CREATED",
+        "timestamp": "2026-03-24T14:44:11.862Z",
+        "by": "CalmTrace System"
+      }
+    ],
+    "hash": "1863649190458498defe6e02b74c04634dd3615f21e22fc93ce897db25d88718"
+  },
+  {
+    "id": "762a07e5-b05a-4978-83d7-463af348a7a3",
+    "timestamp": "2026-03-24T14:44:11.872Z",
+    "ip": "172.16.138.14",
+    "incidentType": "Ransomware",
+    "description": "Ransomware encrypted all files and demanded bitcoin payment. Trojan detected.",
+    "contactEmail": "user2@test.com",
+    "affectedSystem": "Windows 11 PC",
+    "dnsLogs": [
+      {
+        "domain": "cmd-control.onion",
+        "queryTime": "2026-03-24T14:02:55.069Z",
+        "type": "MX",
+        "response": "192.168.63.112"
+      }
+    ],
+    "detection": {
+      "isSuspicious": true,
+      "matchedKeywords": [
+        "ransomware",
+        "trojan"
+      ],
+      "riskScore": 67
+    },
+    "chainOfCustody": [
+      {
+        "id": "e3bb47b2-d5d4-408e-b75c-914066380b27",
+        "timestamp": "2026-03-24T14:44:11.862Z",
+        "hash": "1863649190458498defe6e02b74c04634dd3615f21e22fc93ce897db25d88718",
+        "incidentType": "Phishing"
+      }
+    ],
+    "accessLog": [
+      {
+        "action": "CREATED",
+        "timestamp": "2026-03-24T14:44:11.872Z",
+        "by": "CalmTrace System"
+      }
+    ],
+    "hash": "cafdf7c3ec9609ff168447539df06b374d29e2f54dc67e10c4f76a5fbb41adc3"
+  },
+  {
+    "id": "4b24ad0a-6c20-4dfe-a5ab-66a5a66691b0",
+    "timestamp": "2026-03-24T15:26:20.075Z",
+    "ip": "172.16.74.193",
+    "incidentType": "Phishing",
+    "description": "....",
+    "contactEmail": "abc@gmail.com",
+    "affectedSystem": "mobile",
+    "dnsLogs": [
+      {
+        "domain": "cmd-control.onion",
+        "queryTime": "2026-03-24T14:39:53.155Z",
+        "type": "A",
+        "response": "10.0.107.121"
+      },
+      {
+        "domain": "phishing-portal.xyz",
+        "queryTime": "2026-03-24T15:00:24.736Z",
+        "type": "TXT",
+        "response": "192.168.124.137"
+      }
+    ],
+    "detection": {
+      "isSuspicious": true,
+      "matchedKeywords": [
+        "phishing"
+      ],
+      "riskScore": 43
+    },
+    "chainOfCustody": [
+      {
+        "id": "e3bb47b2-d5d4-408e-b75c-914066380b27",
+        "timestamp": "2026-03-24T14:44:11.862Z",
+        "hash": "1863649190458498defe6e02b74c04634dd3615f21e22fc93ce897db25d88718",
+        "incidentType": "Phishing"
+      },
+      {
+        "id": "762a07e5-b05a-4978-83d7-463af348a7a3",
+        "timestamp": "2026-03-24T14:44:11.872Z",
+        "hash": "cafdf7c3ec9609ff168447539df06b374d29e2f54dc67e10c4f76a5fbb41adc3",
+        "incidentType": "Ransomware"
+      }
+    ],
+    "accessLog": [
+      {
+        "action": "CREATED",
+        "timestamp": "2026-03-24T15:26:20.075Z",
+        "by": "CalmTrace System"
+      }
+    ],
+    "hash": "f1c0ad53c351a805a30cee4e82224de82face2d839de75eedf6a2b34307b6e5a"
+  },
+  {
+    "id": "ae87b865-cc90-4300-b26c-130597f27e10",
+    "timestamp": "2026-03-24T18:14:24.508Z",
+    "ip": "192.168.221.244",
+    "incidentType": "Phishing",
+    "description": "..",
+    "contactEmail": "abcd@gmail.com",
+    "affectedSystem": "mobile",
+    "dnsLogs": [
+      {
+        "domain": "svchost-update.net",
+        "queryTime": "2026-03-24T18:08:33.609Z",
+        "type": "A",
+        "response": "203.45.89.174"
+      },
+      {
+        "domain": "data-exfil.io",
+        "queryTime": "2026-03-24T18:04:01.930Z",
+        "type": "AAAA",
+        "response": "10.0.126.36"
+      },
+      {
+        "domain": "ransom-decrypt.cc",
+        "queryTime": "2026-03-24T17:19:43.327Z",
+        "type": "AAAA",
+        "response": "172.16.197.168"
+      }
+    ],
+    "detection": {
+      "isSuspicious": true,
+      "matchedKeywords": [
+        "phishing"
+      ],
+      "riskScore": 28
+    },
+    "chainOfCustody": [
+      {
+        "id": "e3bb47b2-d5d4-408e-b75c-914066380b27",
+        "timestamp": "2026-03-24T14:44:11.862Z",
+        "hash": "1863649190458498defe6e02b74c04634dd3615f21e22fc93ce897db25d88718",
+        "incidentType": "Phishing"
+      },
+      {
+        "id": "762a07e5-b05a-4978-83d7-463af348a7a3",
+        "timestamp": "2026-03-24T14:44:11.872Z",
+        "hash": "cafdf7c3ec9609ff168447539df06b374d29e2f54dc67e10c4f76a5fbb41adc3",
+        "incidentType": "Ransomware"
+      },
+      {
+        "id": "4b24ad0a-6c20-4dfe-a5ab-66a5a66691b0",
+        "timestamp": "2026-03-24T15:26:20.075Z",
+        "hash": "f1c0ad53c351a805a30cee4e82224de82face2d839de75eedf6a2b34307b6e5a",
+        "incidentType": "Phishing"
+      }
+    ],
+    "accessLog": [
+      {
+        "action": "CREATED",
+        "timestamp": "2026-03-24T18:14:24.508Z",
+        "by": "CalmTrace System"
+      }
+    ],
+    "hash": "0f81ef7f13ea886582b16b3b23ca98f1ab2250a122981ddcbbe59afa3da05e00"
+  }
+]

@@ -1,6 +1,6 @@
-🌐 Website Preview
+Website Preview
 
- 🏠 Home page
+
  <img width="1919" height="985" alt="Screenshot 2026-03-25 104801" src="https://github.com/user-attachments/assets/69c50316-a013-454d-bd33-dfdd41ac0542" />
  <br>
  <img width="1905" height="948" alt="Screenshot 2026-03-25 104915" src="https://github.com/user-attachments/assets/96f0b7ea-b8e9-4bc7-a48b-ed7146ae9f79" />
@@ -13,7 +13,6 @@ Report incident and evidence vault
 <img width="1905" height="984" alt="Screenshot 2026-03-25 105011" src="https://github.com/user-attachments/assets/1aa1ca44-21ae-42ad-a8ce-6b81262c1248" />
 
 
-📊 Dashboard
 <img width="1911" height="975" alt="Screenshot 2026-03-25 105031" src="https://github.com/user-attachments/assets/dd0ee0f0-222b-4a50-8ea3-974dfa7d2d66" />
 <img width="1916" height="912" alt="Screenshot 2026-03-25 105128" src="https://github.com/user-attachments/assets/c6a852bc-5466-4d35-8dfc-4e12ba2001d8" />
 <img width="1885" height="786" alt="Screenshot 2026-03-25 105140" src="https://github.com/user-attachments/assets/07eb6e90-5682-4aae-8ccd-1c543a87c487" />

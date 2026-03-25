@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalmTrace — Cybercrime Evidence Preservation System</title>
+  <meta name="description" content="CalmTrace helps cybercrime victims preserve digital evidence in real-time with tamper-proof hashing and chain of custody." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ─── Alert Container ─────────────────────────────────────────── -->
+<div id="alert-container"></div>
+
+<!-- ─── Navbar ─────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="navbar-logo">🛡️</div>
+    <span class="navbar-title">CalmTrace</span>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" class="active" id="nav-home">🏠 Home</a></li>
+    <li><a href="report.html" id="nav-report">📁 Report Incident</a></li>
+    <li><a href="vault.html" id="nav-vault">🔒 Evidence Vault</a></li>
+    <li><a href="dashboard.html" id="nav-dashboard">📊 Dashboard</a></li>
+    <li><a href="guidelines.html" id="nav-guidelines">📚 Guidelines</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    <span>System Online</span>
+  </div>
+</nav>
+
+<!-- ─── Main ────────────────────────────────────────────────────── -->
+<main class="main-content">
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div class="hero-badge">
+      <span class="ping" style="width:8px;height:8px;"><span style="display:block;width:8px;height:8px;border-radius:50%;background:var(--accent-green)"></span></span>
+      Cybercrime Evidence Preservation System
+    </div>
+    <h1>Stay Calm.<br /><span class="gradient-text">Preserve the Evidence.</span></h1>
+    <p>
+      CalmTrace auto-captures digital forensics in real-time — IP logs, DNS records,
+      and timestamps — sealed with SHA-256 tamperproof hashes so nothing is lost.
+    </p>
+    <div class="hero-cta">
+      <a href="report.html" class="btn btn-primary">🚨 Report Incident</a>
+      <a href="vault.html" class="btn btn-secondary">🔒 View Evidence Vault</a>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <section class="container" style="margin-top:1rem;">
+    <div class="grid-3" id="home-stats" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+      <div class="stat-card cyan">
+        <div class="stat-icon">📁</div>
+        <div class="stat-value" id="stat-total">—</div>
+        <div class="stat-label">Total Records</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">🕐</div>
+        <div class="stat-value" id="stat-24h">—</div>
+        <div class="stat-label">Last 24 Hours</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-value" id="stat-highrisk">—</div>
+        <div class="stat-label">High Risk Events</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <section class="section container">
+    <div class="section-header">
+      <div class="section-label">Core Modules</div>
+      <div class="section-title">Three Pillars of Digital Evidence Protection</div>
+      <div class="section-subtitle">Automated, tamperproof, and legally defensible from the moment of incident.</div>
+    </div>
+
+    <div class="grid-3">
+      <!-- Black Vault -->
+      <div class="card">
+        <div class="card-icon cyan">🗄️</div>
+        <h3>Black Vault</h3>
+        <p>
+          Automatically collects and stores digital evidence — IP addresses, DNS query logs,
+          timestamps, and incident metadata — into an encrypted, structured JSON vault.
+        </p>
+        <div style="margin-top:1.25rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <span class="badge badge-cyan">IP Capture</span>
+          <span class="badge badge-blue">DNS Logs</span>
+          <span class="badge badge-purple">Timestamps</span>
+        </div>
+        <a href="vault.html" class="btn btn-secondary" style="margin-top:1.25rem; width:100%; justify-content:center;">View Vault →</a>
+      </div>
+
+      <!-- Suspicious Activity Detection -->
+      <div class="card">
+        <div class="card-icon red">🔍</div>
+        <h3>Suspicious Activity Detection</h3>
+        <p>
+          Real-time pattern recognition surfaces threat indicators — port scans, brute-force attempts,
+          phishing domains, and unusual traffic spikes — with live popup alerts.
+        </p>
+        <div style="margin-top:1.25rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <span class="badge badge-red">Real-time Alerts</span>
+          <span class="badge badge-yellow">Risk Scoring</span>
+        </div>
+        <button class="btn btn-danger" style="margin-top:1.25rem; width:100%; justify-content:center;" onclick="triggerSimulatedAlert()">⚡ Trigger Demo Alert</button>
+      </div>
+
+      <!-- Verification Engine -->
+      <div class="card">
+        <div class="card-icon green">🔏</div>
+        <h3>Verification Engine</h3>
+        <p>
+          Every evidence record receives a SHA-256 hash at creation time, making tampering
+          mathematically detectable. Full chain of custody logs show every access event.
+        </p>
+        <div style="margin-top:1.25rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <span class="badge badge-green">SHA-256</span>
+          <span class="badge badge-cyan">Chain of Custody</span>
+        </div>
+        <a href="vault.html" class="btn btn-secondary" style="margin-top:1.25rem; width:100%; justify-content:center;">Verify Records →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section container">
+    <div class="section-header">
+      <div class="section-label">Workflow</div>
+      <div class="section-title">How CalmTrace Works</div>
+    </div>
+    <div class="grid-3" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+      <div class="card" style="text-align:center; padding: 2rem 1.5rem;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">📝</div>
+        <h3>1. Report</h3>
+        <p>Victim submits incident details via a secure form. CalmTrace captures the moment.</p>
+      </div>
+      <div class="card" style="text-align:center; padding: 2rem 1.5rem;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">⚙️</div>
+        <h3>2. Analyze</h3>
+        <p>The system auto-collects IP addresses, DNS logs, and runs keyword threat analysis.</p>
+      </div>
+      <div class="card" style="text-align:center; padding: 2rem 1.5rem;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">🔏</div>
+        <h3>3. Seal</h3>
+        <p>A SHA-256 hash is generated for every record — tamperproofing the evidence permanently.</p>
+      </div>
+      <div class="card" style="text-align:center; padding: 2rem 1.5rem;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">⚖️</div>
+        <h3>4. Preserve</h3>
+        <p>Evidence sits in the Black Vault with full chain of custody logs, ready for authorities.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="container" style="padding-bottom:3rem;">
+    <div class="card glow-border" style="text-align:center; padding:3rem 2rem;">
+      <h2 style="font-size:1.8rem; font-weight:800; margin-bottom:0.75rem;">
+        🚨 Incident in Progress?
+      </h2>
+      <p style="color:var(--text-secondary); margin-bottom:1.75rem; max-width:500px; margin-left:auto; margin-right:auto;">
+        Don't panic. Every second matters. Submit your incident now and CalmTrace will preserve
+        everything automatically — before evidence disappears.
+      </p>
+      <a href="report.html" class="btn btn-primary" style="font-size:1.05rem; padding:0.9rem 2.5rem;">
+        🚨 Start Preserving Evidence Now
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── Footer ──────────────────────────────────────────────────── -->
+<footer class="footer">
+  <p>🛡️ <span>CalmTrace</span> &mdash; Cybercrime Evidence Preservation System &mdash; Built for Hackathon 2026</p>
+  <p style="margin-top:0.4rem; font-size:0.78rem;">All evidence is stored locally. No data leaves your system.</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
